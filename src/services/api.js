@@ -113,21 +113,21 @@ export const deleteFeedback = async (id) => {
 };
 
 // Get feedback statistics
-export const getFeedbackStats = async () => {
-	try {
-		const response = await fetch(`${API_BASE_URL}/feedback/stats`, {
-			method: "GET",
-			headers: {
-				"Content-Type": "application/json",
-			},
-		});
+// export const getFeedbackStats = async () => {
+// 	try {
+// 		const response = await fetch(`${API_BASE_URL}/feedback/stats`, {
+// 			method: "GET",
+// 			headers: {
+// 				"Content-Type": "application/json",
+// 			},
+// 		});
 
-		return await handleResponse(response);
-	} catch (error) {
-		console.error("Error fetching feedback stats:", error);
-		throw error;
-	}
-};
+// 		return await handleResponse(response);
+// 	} catch (error) {
+// 		console.error("Error fetching feedback stats:", error);
+// 		throw error;
+// 	}
+// };
 
 // Filter feedback by category
 export const getFeedbackByCategory = async (category) => {

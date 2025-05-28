@@ -1,6 +1,8 @@
 import { useState, useEffect } from "react";
 import { Eye, Check, Trash2, Filter, BarChart3, RefreshCw, Search, Calendar, CheckCircle, XCircle } from "lucide-react";
-import { getAllFeedback, markAsReviewed, deleteFeedback, getFeedbackStats } from "../services/api";
+import { getAllFeedback, markAsReviewed, deleteFeedback, 
+	getFeedbackStats 
+} from "../services/api";
 
 function AdminDashboard() {
 	const [feedback, setFeedback] = useState([]);
@@ -20,7 +22,7 @@ function AdminDashboard() {
 
 	useEffect(() => {
 		fetchFeedback();
-		fetchStats();
+		// fetchStats();
 	}, [filters]);
 
 	const fetchFeedback = async () => {
@@ -40,21 +42,21 @@ function AdminDashboard() {
 		}
 	};
 
-	const fetchStats = async () => {
-		try {
-			const data = await getFeedbackStats();
-			setStats(data.data);
-		} catch (error) {
-			console.error("Failed to fetch stats:", error);
-		}
-	};
+	// const fetchStats = async () => {
+	// 	try {
+	// 		const data = await getFeedbackStats();
+	// 		setStats(data.data);
+	// 	} catch (error) {
+	// 		console.error("Failed to fetch stats:", error);
+	// 	}
+	// };
 
 	const handleMarkReviewed = async (id) => {
 		try {
 			await markAsReviewed(id);
 			setMessage("Feedback marked as reviewed");
 			fetchFeedback();
-			fetchStats();
+			// fetchStats();
 		} catch (error) {
 			setMessage("Failed to mark as reviewed");
 		}
@@ -69,7 +71,7 @@ function AdminDashboard() {
 			await deleteFeedback(id);
 			setMessage("Feedback deleted successfully");
 			fetchFeedback();
-			fetchStats();
+			// fetchStats();
 		} catch (error) {
 			setMessage("Failed to delete feedback");
 		}
@@ -116,7 +118,7 @@ function AdminDashboard() {
 					<button
 						onClick={() => {
 							fetchFeedback();
-							fetchStats();
+							// fetchStats();
 						}}
 						className="btn-secondary flex items-center space-x-2"
 					>

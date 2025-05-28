@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Send, CheckCircle, AlertCircle } from "lucide-react";
+import { submitFeedback } from "../services/api";
 
 function EmployeeForm() {
 	const [formData, setFormData] = useState({
@@ -21,33 +22,42 @@ function EmployeeForm() {
 	};
 
 	const handleSubmit = async (e) => {
+		console.log("handleSubmit called");
 		e.preventDefault();
 
+		console.log("Form data:", formData);
+
 		if (!formData.feedback.trim() || !formData.category) {
+			console.log("Validation failed: missing fields");
 			setMessage("Please fill in all fields");
 			setMessageType("error");
 			return;
 		}
 
 		if (formData.feedback.trim().length < 10) {
+			console.log("Validation failed: feedback too short");
 			setMessage("Feedback must be at least 10 characters long");
 			setMessageType("error");
 			return;
 		}
 
+		console.log("Starting API call...");
 		setLoading(true);
 		setMessage("");
 
 		try {
-			// Simulated API call
-			await new Promise((resolve) => setTimeout(resolve, 1000));
+			console.log("Making real API call");
+			await submitFeedback(formData);
+			console.log("API call successful");
 			setMessage("Thank you! Your feedback has been submitted successfully.");
 			setMessageType("success");
 			setFormData({ feedback: "", category: "" });
 		} catch (error) {
+			console.log("API call failed:", error);
 			setMessage(error.message || "Failed to submit feedback. Please try again.");
 			setMessageType("error");
 		} finally {
+			console.log("API call completed, setting loading to false");
 			setLoading(false);
 		}
 	};
